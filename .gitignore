@@ -22,3 +22,6 @@ go.work
 
 # .Envrc
 *.envrc
+
+# Jetbrains
+.idea
