@@ -20,5 +20,5 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodPatch, "/v1/wines/:id", app.updateWineHandler)
 	router.HandlerFunc(http.MethodDelete, "/v1/wines/:id", app.deleteWineHandler)
 
-	return router
+	return app.recoverPanic(app.enableCORS(app.rateLimit(router)))
 }
