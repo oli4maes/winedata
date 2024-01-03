@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS wines_name_idx;

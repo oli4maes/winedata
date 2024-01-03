@@ -15,6 +15,7 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/healthcheck", app.healthCheckHandler)
 
 	router.HandlerFunc(http.MethodGet, "/v1/wines", app.listWinesHandler)
+	router.HandlerFunc(http.MethodPost, "/v1/wines", app.createWineHandler)
 
 	return router
 }

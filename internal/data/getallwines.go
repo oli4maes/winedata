@@ -10,9 +10,9 @@ func (w WineModel) GetAll(name string, filters Filters) ([]*Wine, Metadata, erro
 	query := fmt.Sprintf(`
         SELECT count(*) OVER(), id, name, version
         FROM wines
-        WHERE (to_tsvector('simple', name) @@ plainto_tsquery('simple', $1) OR $1 = '')   
+        WHERE  (to_tsvector('simple', name) @@ plainto_tsquery('simple', $1) OR $1 = '')
         ORDER BY %s %s, id ASC
-        LIMIT $3 OFFSET $4`, filters.sortColumn(), filters.sortDirection())
+        LIMIT $2 OFFSET $3`, filters.sortColumn(), filters.sortDirection())
 
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
@@ -29,6 +29,7 @@ func (w WineModel) GetAll(name string, filters Filters) ([]*Wine, Metadata, erro
 	totalRecords := 0
 
 	wines := []*Wine{}
+
 	for rows.Next() {
 		var wine Wine
 
